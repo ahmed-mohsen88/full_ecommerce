@@ -1,26 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
-import {
-  FormControl,
-  FormLabel,
-  TextField,
-  Button,
-  Paper,
-  Stack,
-  Box,
-} from "@mui/material";
+import { FormControl, FormLabel, TextField, Button, Paper, Stack, Box, } from "@mui/material";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
 import { UpdatePost, createPost, getPosts } from "../../redux/actions/posts";
 function Form({ editState, seteditState }) {
   const creatorId = JSON.parse(localStorage.getItem("profile")).result.id;
-  const [postData, setpostData] = useState({
-    title: "",
-    message: "",
-    tags: "",
-    selectedFile: "",
-    creatorId: creatorId,
-  });
+  const [postData, setpostData] = useState({ title: "", message: "", tags: "", selectedFile: "", creatorId: creatorId, });
 
   const x = useCallback(() => {
     setpostData(editState);

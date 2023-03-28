@@ -2,11 +2,13 @@ import { Container, Grid, Grow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Posts from "../components/posts/Posts";
 import Form from "../components/form/Form";
-import { useDispatch } from "react-redux";
-import { getPosts } from "../redux/actions/posts";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts, searchPosts } from "../redux/actions/posts";
+import Search from "../components/Search";
 
 function Home() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const token = JSON.stringify(localStorage.getItem("profile")).token;
     dispatch(getPosts(token));
@@ -16,6 +18,22 @@ function Home() {
   const handelChange1 = (post) => {
     seteditState(post);
     return post;
+  };
+
+  const [searchValue, setSearchValue] = useState("");
+  const posts = useSelector((state) => state.posts);
+
+  const handelSearch = (e) => {
+    const updatedSearchValue = e.target.value;
+    setSearchValue(() => updatedSearchValue);
+    const filteredPosts = posts.filter((post) => {
+      return post.creator.toLowerCase().includes(searchValue.toLowerCase());
+    });
+    if (updatedSearchValue === "") {
+      dispatch(getPosts());
+    } else {
+      dispatch(searchPosts(filteredPosts));
+    }
   };
   return (
     <Grow in>
@@ -36,6 +54,7 @@ function Home() {
             <Posts handelChange1={handelChange1} />
           </Grid>
           <Grid xs={12} sm={3} item>
+            <Search handelSearch={handelSearch} searchValue={searchValue} />
             <Form editState={editState} seteditState={seteditState} />
           </Grid>
         </Grid>

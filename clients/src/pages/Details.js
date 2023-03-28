@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {
@@ -15,14 +15,13 @@ import {
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  refreshSelected,
   resetSelectedPost,
   setSelectedPost,
 } from "../redux/actions/selectedPost";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { addComment, resetComment } from "../redux/actions/comments";
 import Comment from "../components/Comment";
-import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import ScrollToTop from "../components/ScrollToTop";
 function Details() {
   const [comments, setComments] = useState("");
 
@@ -156,23 +155,8 @@ function Details() {
               />
             </Grid>
           </Grid>
-          <Button
-            variant="contained"
-            sx={{
-              position: "fixed",
-              bottom: "20%",
-              left: "92%",
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              animation: "ease 2s",
-            }}
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            <KeyboardDoubleArrowUpIcon />
-          </Button>
+          {/* scroll to top icon */}
+          <ScrollToTop />
         </Paper>
       )}
     </Container>

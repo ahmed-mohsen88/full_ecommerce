@@ -50,3 +50,7 @@ export const DeletedPost = (id, token) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const searchPosts = (filteredPost) => async (dispatch) => {
+  dispatch({ type: "FILTER", payload: filteredPost });
+};

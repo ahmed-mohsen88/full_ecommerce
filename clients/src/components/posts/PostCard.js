@@ -13,11 +13,11 @@ import {
 import React from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { DeletedPost, UpdatePost } from "../../../redux/actions/posts";
+import { DeletedPost, UpdatePost } from "../../redux/actions/posts";
 import { useNavigate } from "react-router-dom";
-import { setSelectedPost } from "../../../redux/actions/selectedPost";
+import { setSelectedPost } from "../../redux/actions/selectedPost";
 
-function Post({ post, handelChange }) {
+function PostCard({ post, handelChange }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handelLiked = (post) => {
@@ -112,4 +112,4 @@ function Post({ post, handelChange }) {
     </>
   );
 }
-export default Post;
+export default PostCard;

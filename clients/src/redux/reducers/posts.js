@@ -6,6 +6,8 @@ const reducer = (posts = [], action) => {
       return [...posts, action.payload];
     case "Update":
       return [...posts, action.payload];
+    case "FILTER":
+      return action.payload;
     default:
       return posts;
   }
