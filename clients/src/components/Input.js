@@ -30,7 +30,7 @@ function Input({
         fullWidth
         required
         InputProps={
-          name === "password"
+          label === "password"
             ? {
                 endAdornment: (
                   <InputAdornment position="start">

@@ -23,3 +23,18 @@ export const signIN = (data, navigate) => async (dispatch) => {
     navigate("/");
   }
 };
+
+export const authorization = (token, navigate) => async (dispatch) => {
+  try {
+    const data = await axios.post(`${url}/authorization`, "", {
+      headers: { Authorization: token },
+    });
+
+    await dispatch({ type: "signIn", payload: data.data });
+    // console.log(data.data);
+    await navigate("/home");
+  } catch (error) {
+    console.log(error);
+    navigate("/");
+  }
+};

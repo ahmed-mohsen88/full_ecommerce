@@ -8,6 +8,7 @@ import posts from "./redux/reducers/posts";
 import signup from "./redux/reducers/signUp";
 import selectedPost from "./redux/reducers/selectedPost";
 import comments from "./redux/reducers/comments";
+import notificationReducer from "./redux/reducers/notificationReducer";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     signup: signup,
     selectedPost: selectedPost,
     comments: comments,
+    notificationReducer: notificationReducer,
   },
 });
 

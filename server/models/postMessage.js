@@ -24,6 +24,7 @@ const postSchema = mongoose.Schema({
     default: new Date(),
   },
   creatorId: String,
+  
 });
 
 const postMessage = mongoose.model("postMessage", postSchema);

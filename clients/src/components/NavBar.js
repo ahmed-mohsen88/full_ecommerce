@@ -1,5 +1,5 @@
-import { AppBar, Box, Typography, Button, Grid } from "@mui/material";
-import React from "react";
+import { AppBar, Box, Typography, Button, Grid, Badge } from "@mui/material";
+import React, { useState } from "react";
 import memories from "../images/memories.png";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIN } from "../redux/actions/signUp";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import NotificationButton from "./NotificationButton";
+import NotificationList from "./NotificationList";
+
 function NavBar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.signup);
@@ -20,9 +23,11 @@ function NavBar() {
     const token = response.credential;
     dispatch(signIN(token));
   };
+
+  const [show, setshow] = useState(false);
   return (
     <AppBar
-      position="static"
+      position="relative"
       color="inherit"
       sx={{
         display: "flex",
@@ -59,18 +64,24 @@ function NavBar() {
         columnGap={2}
       >
         {user.result ? (
-          <Grid display={"flex"} alignItems={"center"} gap="10px">
-            <AccountCircleIcon sx={{ fontSize: "2rem" }} />
-            <Typography color={"info"} fontWeight={"600"}>
-              <span style={{ color: "blue" }}>{"Welcome "}</span>
-              {user.result.name}
-            </Typography>
-            <Link to="/" onClick={() => handelLogOut()}>
-              <Button variant="contained" color="primary">
-                logout
-              </Button>
-            </Link>
-          </Grid>
+          <>
+            <Grid>
+              <NotificationButton show={show} setshow={setshow} />
+              {show && <NotificationList  />}
+            </Grid>
+            <Grid display={"flex"} alignItems={"center"} gap="10px">
+              <AccountCircleIcon sx={{ fontSize: "2rem" }} />
+              <Typography color={"info"} fontWeight={"600"}>
+                <span style={{ color: "blue" }}>{"Welcome "}</span>
+                {user.result.name}
+              </Typography>
+              <Link to="/" onClick={() => handelLogOut()}>
+                <Button variant="contained" color="primary">
+                  logout
+                </Button>
+              </Link>
+            </Grid>
+          </>
         ) : (
           <Link to="/">
             <Button variant="contained" color="primary">

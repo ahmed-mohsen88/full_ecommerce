@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import PostRoute from "./Routes/posts.js";
 import signUpRouter from "./Routes/signup.js";
 import commentsRouter from "./Routes/comments.js";
+import notificationRouter from "./Routes/notificationRoute.js";
 
 dotenv.config();
 
@@ -29,7 +30,8 @@ app.use(cors());
 
 app.use("/posts", PostRoute);
 app.use("/signup", signUpRouter);
-app.use("/comments" ,commentsRouter )
+app.use("/comments", commentsRouter);
+app.use("/notification", notificationRouter);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
 

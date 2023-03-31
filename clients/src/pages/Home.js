@@ -5,14 +5,23 @@ import Form from "../components/form/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, searchPosts } from "../redux/actions/posts";
 import Search from "../components/Search";
+import { getNotes } from "../redux/actions/notificationAction";
+import { authorization } from "../redux/actions/signUp";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
-    const token = JSON.stringify(localStorage.getItem("profile")).token;
+    const token = JSON.parse(localStorage.getItem("profile"))?.token;
+    dispatch(authorization(token, navigate));
     dispatch(getPosts(token));
-  }, [dispatch]);
+      dispatch(getNotes());
+  }, [dispatch, navigate]);
+
+  // useEffect(() => {
+  //   const token = JSON.parse(localStorage.getItem("profile"))?.token;
+  // }, [dispatch]);
 
   const [editState, seteditState] = useState("");
   const handelChange1 = (post) => {

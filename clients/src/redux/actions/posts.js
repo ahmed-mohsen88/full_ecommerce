@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const url = "http://localhost:5000/Posts";
 
 export const getPosts = (token) => async (dispatch) => {
@@ -24,6 +25,23 @@ export const createPost = (post, token) => async (dispatch) => {
     });
     dispatch({ type: "CREATE", payload: JSON.stringify(data) });
     dispatch(getPosts());
+  } catch (error) {
+    console.log(error);
+  }
+  try {
+    const notes = {
+      title: post.title,
+      message: post.message,
+      creator: post.creator,
+    };
+    console.log(notes);
+    const addNotes = await axios
+      .post("http://localhost:5000/notification/postNote", notes, {
+        headers: { authorization: token },
+      })
+      .then((data) => {
+        dispatch({ type: "FETCHNOTES", payload: [data.data] });
+      });
   } catch (error) {
     console.log(error);
   }

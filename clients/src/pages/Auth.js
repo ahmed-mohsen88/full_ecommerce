@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { sendData, signIN } from "../redux/actions/signUp";
+import { authorization, sendData, signIN } from "../redux/actions/signUp";
 import Input from "../components/Input";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import Grid from "@mui/material/Grid";
@@ -13,8 +13,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Auth() {
   const navigate = useNavigate();
-  const [isSignUp, setIsSignUp] = useState(true);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("profile"))?.token;
+    dispatch(authorization(token, navigate));
+  }, [dispatch, navigate]);
+  const [isSignUp, setIsSignUp] = useState(true);
   const [inputValue, setInputValue] = useState({
     firstName: "",
     lastName: "",

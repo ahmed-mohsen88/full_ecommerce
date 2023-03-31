@@ -6,5 +6,6 @@ const signUpRouter = express.Router();
 
 signUpRouter.post("/", addUser);
 signUpRouter.post("/signIn", signIn);
+signUpRouter.post("/authorization", auth);
 
 export default signUpRouter;
